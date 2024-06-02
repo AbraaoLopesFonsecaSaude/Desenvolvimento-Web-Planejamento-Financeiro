@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Gastos</title>
+  <style>
+    /* Estilos CSS */
+    #chartContainer {
+      width: 500px;
+      height: 500px;
+      margin: 20px auto;
+    }
+    h1{
+      color: rgb(0, 0, 0);
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 50px;
+    }
+    div{
+      color: rgb(0, 0, 0);
+      font-family: Arial, Helvetica, sans-serif;   
+    }
+    /* Estilos para o botão */
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #077cea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    /* Estilos para o botão quando o mouse está sobre ele */
+    button:hover {
+      background-color: rgb(0, 62, 143);
+    }
+  
+
+    body{
+      background: rgb(255,255,255);
+      background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(127,233,255,1) 100%); 
+    }
+  </style>
+</head>
+<body>
+  <h1>Controle de Gastos</h1>
+  <div>
+    <label for="renda">Renda mensal:</label>
+    <input type="number" id="renda" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-01">Gasto 01:</label>
+    <input type="number" id="gasto-01" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-02">Gasto 02:</label>
+    <input type="number" id="gasto-02" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-03">Gasto 03:</label>
+    <input type="number" id="gasto-03" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-04">Gasto 04:</label>
+    <input type="number" id="gasto-04" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-05">Gasto 05:</label>
+    <input type="number" id="gasto-05" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-06">Gasto 06:</label>
+    <input type="number" id="gasto-06" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-07">Gasto 07:</label>
+    <input type="number" id="gasto-07" min="0" step="0.01">
+  </div>
+  <div>
+    <label for="gasto-08">Gasto 08:</label>
+    <input type="number" id="gasto-08" min="0" step="0.01">
+  </div>
+  <div>
+    <button onclick="gerarGrafico()">Gerar Planilha</button>
+  </div>
+
+    <!-- Link para a planilha financeira -->
+    <a href="Index - Planilha financeira.html">
+      <button>Voltar</button>
+
+  <div id="chartContainer">
+    <canvas id="myChart"></canvas>
+  </div>
+  
+  <!-- Biblioteca para o gráfico de pizza -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <script>
+    function gerarGrafico() {
+      // Obter os valores dos campos
+      let renda = parseFloat(document.getElementById('renda').value);
+      let gasto01 = parseFloat(document.getElementById('gasto-01').value);
+      let gasto02 = parseFloat(document.getElementById('gasto-02').value);
+      let gasto03 = parseFloat(document.getElementById('gasto-03').value);
+      let gasto04 = parseFloat(document.getElementById('gasto-04').value);
+      let gasto05 = parseFloat(document.getElementById('gasto-05').value);
+      let gasto06 = parseFloat(document.getElementById('gasto-06').value);
+      let gasto07 = parseFloat(document.getElementById('gasto-06').value);
+      let gasto08 = parseFloat(document.getElementById('gasto-06').value);
+
+      // Verificar se todos os campos estão preenchidos
+      if (isNaN(renda) || isNaN(gasto01) || isNaN(gasto02) || isNaN(gasto03) || isNaN(gasto04) || isNaN(gasto05) || isNaN(gasto06) || isNaN(gasto07) || isNaN(gasto08)) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+      }
+
+      // Verificar se a renda é válida
+      if (renda <= 0) {
+        alert('Por favor, forneça uma renda mensal válida.');
+        return;
+      }
+
+      // Calcular o total dos gastos
+      let totalGastos = gasto01 + gasto02 + gasto03 + gasto04 + gasto05 + gasto06 + gasto07 + gasto08;
+      
+      // Calcular a porcentagem dos gastos em relação à renda
+      let porcentagemgasto01 = ((gasto01 / renda) * 100).toFixed(1);
+      let porcentagemgasto02 = ((gasto02 / renda) * 100).toFixed(1);
+      let porcentagemgasto03 = ((gasto03 / renda) * 100).toFixed(1);
+      let porcentagemgasto04 = ((gasto04 / renda) * 100).toFixed(1);
+      let porcentagemgasto05 = ((gasto05 / renda) * 100).toFixed(1);
+      let porcentagemgasto06 = ((gasto06 / renda) * 100).toFixed(1);
+      let porcentagemgasto07 = ((gasto07 / renda) * 100).toFixed(1);
+      let porcentagemgasto08 = ((gasto08 / renda) * 100).toFixed(1);
+
+      let sobra = renda - totalGastos;
+      // Criar um array com os dados
+      let data = [porcentagemgasto01, porcentagemgasto02, porcentagemgasto03, porcentagemgasto04, porcentagemgasto05,porcentagemgasto06, porcentagemgasto07, porcentagemgasto08];
+
+      // Criar um array com as cores para os dados
+      let cores = ['#ff9999', '#66b3ff', '#99ff99', '#098003','#8c1414','#4e3c3c','#483D8B','#778899'];
+
+      // Criar o gráfico de pizza
+      let ctx = document.getElementById('myChart').getContext('2d');
+      let myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Gasto 01', 'Gasto 02', 'Gasto 03', 'Gasto 04', 'Gasto 05', 'Gasto 06', 'Gasto 07', 'Gasto 08'],
+          datasets: [{
+            data: data,
+            backgroundColor: cores
+          }]
+        }
+      });
+
+      // Exibir o total dos gastos e a sobra
+      alert('Total de gastos: R$ ' + totalGastos.toFixed(2) + '\nSobra: R$ ' + sobra.toFixed(2));
+    }
+  </script>
+</body>
+</html>
